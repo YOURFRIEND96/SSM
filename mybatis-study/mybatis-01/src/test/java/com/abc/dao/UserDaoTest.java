@@ -3,19 +3,38 @@ package com.abc.dao;
 import com.abc.mybatis.dao.UserDao;
 import com.abc.mybatis.entity.User;
 import com.abc.mybatis.util.MybatisUtil;
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserDaoTest {
 
     @Test
     public void testSelectUser() {
-        SqlSession session = MybatisUtil.getSqlSession();
-
+        SqlSessionFactory sqlSessionFactory = null;
+        try {
+            String resource = "mybatis-config.xml";
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SqlSession session = sqlSessionFactory.openSession();
         UserDao userDao = session.getMapper(UserDao.class);
-        List<User> users = userDao.selectUser();
+        int curPage = 1;
+        int pageSize = 2;
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("startIndex", (curPage - 1) * pageSize);
+        map.put("pageSize", pageSize);
+        List<User> users = userDao.selectUser(map);
         for (User user: users) {
             System.out.println(user);
         }

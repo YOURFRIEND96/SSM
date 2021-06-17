@@ -8,6 +8,9 @@
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
     <typeAliases>
         <package name="com.abc.mybatis.entity"/>
         <!--<typeAlias type="com.abc.mybatis.entity.User" alias="User"/>-->

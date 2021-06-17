@@ -9,6 +9,7 @@
         <property name="password" value="root"/>
     </properties>
     <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
         <setting name="logImpl" value="LOG4J"/>
     </settings>
     <typeAliases>
@@ -27,7 +28,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/abc/mybatis/dao/UserMapper.xml"/>
+        <mapper resource="mapper/BlogMapper.xml"/>
     </mappers>
 
 </configuration>
